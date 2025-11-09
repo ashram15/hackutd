@@ -89,6 +89,10 @@ export default function BrowsePage() {
 
     return (
         <div className="min-h-screen bg-gray-100">
+            {/* Floating build button in corner */}
+            <Link to="/build" className="fixed bottom-6 right-6 z-50 bg-red-600 text-white px-4 py-3 rounded-full shadow-lg hover:bg-red-700 focus:outline-none">
+                Build
+            </Link>
             <header className="bg-red-600 text-white py-6 shadow-lg">
                 <div className="max-w-7xl mx-auto px-6">
                     <h1 className="text-4xl font-bold text-center">Car Catcher</h1>
