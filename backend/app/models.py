@@ -1,3 +1,4 @@
+# Add Review model + fields to Cars (ratings, seats)
 from sqlalchemy import Column, Integer, String, Float, JSON
 from .db import Base
 

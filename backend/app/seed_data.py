@@ -1,3 +1,4 @@
+# Add initial reviews and ratings for cars
 from .db import SessionLocal, engine, Base
 from .models import Vehicle
 
