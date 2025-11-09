@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 // Wrapper component to manage car state and sync with payment calculator
 function VehicleCardWithCalculator({ car, onReviewAdded }) {
     const [currentCarData, setCurrentCarData] = useState(car);
+    const [showPayment, setShowPayment] = useState(false);
 
     return (
         <div className="flex flex-col">
@@ -17,10 +18,18 @@ function VehicleCardWithCalculator({ car, onReviewAdded }) {
                 onReviewAdded={onReviewAdded}
                 onCarUpdate={setCurrentCarData}
             />
-            <PaymentCalculator
-                vehicleId={currentCarData.id}
-                price={currentCarData.msrp || currentCarData.price}
-            />
+            <button
+                onClick={() => setShowPayment(!showPayment)}
+                className="mt-2 w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors flex items-center justify-center gap-2"
+            >
+                {showPayment ? '✕ Hide' : 'View'} Payment Options
+            </button>
+            {showPayment && (
+                <PaymentCalculator
+                    vehicleId={currentCarData.id}
+                    price={currentCarData.msrp || currentCarData.price}
+                />
+            )}
         </div>
     );
 }

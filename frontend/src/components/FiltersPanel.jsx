@@ -2,11 +2,11 @@ import { useState } from "react";
 
 export default function FiltersPanel({ filters, setFilters, onSearch }) {
     const usageOptions = [
-        { value: "work", label: "Work Commute", icon: "💼" },
-        { value: "family", label: "Family & Kids", icon: "👨‍👩‍👧‍👦" },
-        { value: "travel", label: "Travel & Adventure", icon: "🏔️" },
-        { value: "daily", label: "Daily Errands", icon: "🛒" },
-        { value: "luxury", label: "Luxury & Style", icon: "✨" }
+        { value: "work", label: "Work Commute", icon: "" },
+        { value: "family", label: "Family & Kids", icon: "" },
+        { value: "travel", label: "Travel & Adventure", icon: "" },
+        { value: "daily", label: "Daily Errands", icon: "" },
+        { value: "luxury", label: "Luxury & Style", icon: "" }
     ];
 
     const handleFilterChange = (key, value) => {

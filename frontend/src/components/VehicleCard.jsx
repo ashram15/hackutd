@@ -29,7 +29,7 @@ export default function VehicleCard({ car, onReviewAdded, onCarUpdate, hybridOnl
 
     return (
         <div className="border rounded-lg shadow-lg p-4 bg-white hover:shadow-xl transition-shadow">
-            <img src={currentCar.image} alt={currentCar.model} className="w-full h-48 object-cover rounded mb-3" />
+            <img src={currentCar.image} alt={currentCar.model} className="w-full h-48 object-contain rounded mb-3 bg-gray-50" />
 
             <h3 className="text-xl font-bold text-gray-800 mb-1">
                 {currentCar.year} {currentCar.model} {currentCar.trim}
