@@ -55,15 +55,15 @@ export default function VehicleCard({ car, onReviewAdded, onCarUpdate, hybridOnl
 
             <div className="space-y-2 mb-3">
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <span>🚗 {currentCar.mpg_city}/{currentCar.mpg_highway} MPG</span>
+                    <span>{currentCar.mpg_city}/{currentCar.mpg_highway} MPG</span>
                     <span>•</span>
                     <span>{currentCar.drivetrain}</span>
                 </div>
 
                 <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <span>💺 {currentCar.seats} seats</span>
+                    <span>{currentCar.seats} seats</span>
                     <span>•</span>
-                    <span>🏷️ {currentCar.category}</span>
+                    <span> {currentCar.category}</span>
                 </div>
             </div>
 
