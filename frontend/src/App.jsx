@@ -15,13 +15,13 @@ function HeaderNav() {
     return (
         <header className="bg-white shadow sticky top-0 z-40">
             <div className="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-                <Link to="/" className="text-xl font-bold text-red-600">CarCatcher</Link>
+                <Link to="/" className="text-xl font-bold text-red-600" style={{ fontFamily: 'Shrikhand, cursive' }}>CarCatcher</Link>
                 <nav className="flex items-center gap-6">
-                    <NavLink to="/" className={({ isActive }) => `text-sm font-medium ${isActive ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}`}>Search</NavLink>
-                    <NavLink to="/browse" className={({ isActive }) => `text-sm font-medium ${isActive ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}`}>Browse</NavLink>
-                    <NavLink to="/build" className={({ isActive }) => `text-sm font-medium ${isActive ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}`}>Build</NavLink>
+                    <NavLink to="/" className={({ isActive }) => `text-sm font-medium ${isActive ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}`} style={{ fontFamily: 'Montserrat, cursive' }}>Search</NavLink>
+                    <NavLink to="/browse" className={({ isActive }) => `text-sm font-medium ${isActive ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}`} style={{ fontFamily: 'Montserrat, cursive' }}>Browse</NavLink>
+                    <NavLink to="/build" className={({ isActive }) => `text-sm font-medium ${isActive ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}`} style={{ fontFamily: 'Montserrat, cursive' }}>Build</NavLink>
                     {isAuthenticated && (
-                        <NavLink to="/favorites" className={({ isActive }) => `text-sm font-medium ${isActive ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}`}>
+                        <NavLink to="/favorites" className={({ isActive }) => `text-sm font-medium ${isActive ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}`} style={{ fontFamily: 'Montserrat, cursive' }}>
                             Favorites {count > 0 && <span className="ml-1 inline-flex items-center justify-center text-xs bg-red-600 text-white rounded-full h-5 min-w-[1.25rem] px-1">{count}</span>}
                         </NavLink>
                     )}
