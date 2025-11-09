@@ -75,7 +75,7 @@ export default function SearchPage() {
             {/* Header */}
             <header className="bg-red-600 text-white py-6 shadow-lg">
                 <div className="max-w-7xl mx-auto px-6">
-                    <h1 className="text-4xl font-bold text-center">Toyota Car Finder</h1>
+                    <h1 className="text-4xl font-bold text-center">Car Catcher</h1>
                     <p className="text-center mt-2 text-red-100">Find your perfect Toyota vehicle</p>
                 </div>
             </header>
