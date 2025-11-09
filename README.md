@@ -71,7 +71,7 @@ A comprehensive web application for shopping Toyota vehicles with advanced filte
 - **Auth0 React SDK** - Authentication and user management
 - **Context API** - Global favorites state management
 
-## Setup Instructions 🚀
+## Setup Instructions 
 
 ### Backend Setup
 
@@ -156,7 +156,7 @@ docker-compose up
 - **usage**: Vehicle usage type (`work`, `family`, `travel`, `daily`, `luxury`)
 - **hybrid**: Boolean flag to filter hybrid-only vehicles (`true`)
 
-## Project Structure 📁
+## Project Structure
 
 ```
 hackutd/
@@ -232,7 +232,7 @@ hackutd/
 25. Image optimization (object-contain)
 26. Sticky header navigation with active route highlighting
 
-## Future Enhancements 🚀
+## Future Enhancements 
 
 - Server-side favorites sync (API endpoints)
 - Build page for vehicle customization
