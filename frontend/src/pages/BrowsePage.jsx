@@ -91,7 +91,7 @@ export default function BrowsePage() {
         <div className="min-h-screen bg-gray-100">
             <header className="bg-red-600 text-white py-6 shadow-lg">
                 <div className="max-w-7xl mx-auto px-6">
-                    <h1 className="text-4xl font-bold text-center">Browse Toyota Vehicles</h1>
+                    <h1 className="text-4xl font-bold text-center">Car Catcher</h1>
                     <p className="text-center mt-2 text-red-100">Explore our complete lineup</p>
                 </div>
             </header>
