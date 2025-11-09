@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:8000/api";
+// Use environment variable for API base (configure in .env as VITE_API_BASE_URL)
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ? `${import.meta.env.VITE_API_BASE_URL}/api` : "http://localhost:8000/api";
 
 // Fetch all vehicles with optional filters
 export async function fetchVehicles(filters = {}) {

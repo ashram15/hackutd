@@ -87,7 +87,7 @@ export default function FiltersPanel({ filters, setFilters, onSearch }) {
                         className="h-5 w-5 text-red-600 focus:ring-red-500 border-gray-300 rounded"
                     />
                     <span className="text-sm font-medium text-gray-700">
-                        Hybrid only (Camry, Sienna)
+                        Hybrid only
                     </span>
                 </label>
             </div>

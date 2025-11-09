@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useFavorites } from "../context/FavoritesContext";
 import ReviewForm from "./ReviewForm";
 import TrimSelector from "./TrimSelector";
 
 export default function VehicleCard({ car, onReviewAdded, onCarUpdate, hybridOnly = false }) {
     const [currentCar, setCurrentCar] = useState(car);
+    const { isAuthenticated } = useAuth0();
+    const { isFavorite, toggle } = useFavorites();
 
     const averageReviewRating = currentCar.reviews && currentCar.reviews.length > 0
         ? (currentCar.reviews.reduce((sum, r) => sum + r.rating, 0) / currentCar.reviews.length).toFixed(1)
@@ -28,7 +32,17 @@ export default function VehicleCard({ car, onReviewAdded, onCarUpdate, hybridOnl
     };
 
     return (
-        <div className="border rounded-lg shadow-lg p-4 bg-white hover:shadow-xl transition-shadow">
+        <div className="border rounded-lg shadow-lg p-4 bg-white hover:shadow-xl transition-shadow relative">
+            {isAuthenticated && (
+                <button
+                    onClick={() => toggle(currentCar.id)}
+                    className={`absolute top-3 right-3 rounded-full p-2 shadow ${isFavorite(currentCar.id) ? 'bg-red-600 text-white' : 'bg-white text-gray-700'} hover:scale-105 transition`}
+                    aria-label={isFavorite(currentCar.id) ? 'Unfavorite' : 'Favorite'}
+                    title={isFavorite(currentCar.id) ? 'Unfavorite' : 'Favorite'}
+                >
+                    {isFavorite(currentCar.id) ? '♥' : '♡'}
+                </button>
+            )}
             <img src={currentCar.image} alt={currentCar.model} className="w-full h-48 object-contain rounded mb-3 bg-gray-50" />
 
             <h3 className="text-xl font-bold text-gray-800 mb-1">

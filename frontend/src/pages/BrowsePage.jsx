@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useFavorites } from "../context/FavoritesContext";
 import { fetchVehicles } from "../api";
 import { Link } from "react-router-dom";
 
@@ -7,6 +9,8 @@ export default function BrowsePage() {
     const [isLoading, setIsLoading] = useState(false);
     const [selectedCar, setSelectedCar] = useState(null);
     const [hybridOnly, setHybridOnly] = useState(false);
+    const { isAuthenticated } = useAuth0();
+    const { isFavorite, toggle } = useFavorites();
 
     useEffect(() => {
         async function loadCars() {
@@ -143,8 +147,18 @@ export default function BrowsePage() {
                                     {list.map((car) => (
                                         <div
                                             key={car.id}
-                                            className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+                                            className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow relative"
                                         >
+                                            {isAuthenticated && (
+                                                <button
+                                                    onClick={() => toggle(car.id)}
+                                                    className={`absolute top-2 right-2 rounded-full p-2 shadow text-sm ${isFavorite(car.id) ? 'bg-red-600 text-white' : 'bg-white text-gray-700'} hover:scale-105 transition`}
+                                                    aria-label={isFavorite(car.id) ? 'Unfavorite' : 'Favorite'}
+                                                    title={isFavorite(car.id) ? 'Unfavorite' : 'Favorite'}
+                                                >
+                                                    {isFavorite(car.id) ? '♥' : '♡'}
+                                                </button>
+                                            )}
                                             <img
                                                 src={car.image || 'https://via.placeholder.com/400x300?text=Toyota'}
                                                 alt={car.model}

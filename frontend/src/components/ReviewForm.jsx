@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { postReview } from "../api";
 
 export default function ReviewForm({ vehicleId, onReviewAdded }) {
+    const { isAuthenticated, user, loginWithRedirect } = useAuth0();
     const [isOpen, setIsOpen] = useState(false);
     const [formData, setFormData] = useState({
         user_name: "",
@@ -36,6 +38,26 @@ export default function ReviewForm({ vehicleId, onReviewAdded }) {
     const handleChange = (field, value) => {
         setFormData({ ...formData, [field]: value });
     };
+
+    // If not authenticated, show login prompt
+    if (!isAuthenticated) {
+        return (
+            <div className="mt-3 bg-blue-50 p-4 rounded-lg border border-blue-200">
+                <p className="text-sm text-gray-700 mb-2">
+                    <span className="font-semibold">Want to share your experience?</span>
+                </p>
+                <p className="text-xs text-gray-600 mb-3">
+                    Log in to write a review for this vehicle.
+                </p>
+                <button
+                    onClick={() => loginWithRedirect()}
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+                >
+                    Log In to Review
+                </button>
+            </div>
+        );
+    }
 
     if (!isOpen) {
         return (
