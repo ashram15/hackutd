@@ -25,42 +25,67 @@ export default function BrowsePage() {
 
     const selected = selectedCar ? cars.find(c => c.id === selectedCar) : null;
 
-    const categoryOrder = ["Sedan", "Minivan", "SUV", "Truck", "Sports Car"]; // preferred order
-    const groupedEntries = Object.entries(
-        cars.reduce((acc, car) => {
-            const key = car.category || "Other";
-            if (!acc[key]) acc[key] = [];
-            acc[key].push(car);
-            return acc;
-        }, {})
-    ).sort((a, b) => {
-        const ai = categoryOrder.indexOf(a[0]);
-        const bi = categoryOrder.indexOf(b[0]);
-        const aRank = ai === -1 ? 99 : ai;
-        const bRank = bi === -1 ? 99 : bi;
-        if (aRank !== bRank) return aRank - bRank;
-        return a[0].localeCompare(b[0]);
-    });
+    // Build explicit sections in the requested order:
+    // 1) Cars and Minivans (combine Sedan + Minivan)
+    // 2) SUV
+    // 3) Trucks
+    // 4) Electric & Hybrid
+    // then any remaining categories alphabetically
+    const isElectricOrHybrid = (car) => {
+        const fuel = (car.fuel_type || "").toString().toLowerCase();
+        const hasHybridTrim = Array.isArray(car.available_trims) && car.available_trims.some(t => t.is_hybrid);
+        return !!(car.is_electric || car.is_hybrid || fuel.includes("electric") || fuel.includes("hybrid") || hasHybridTrim);
+    };
 
-    // Combine Sedan and Minivan into "Cars & Minivans" section
-    const displayEntries = [];
-    let sedans = [];
-    let minivans = [];
+    const carsAndMinivans = [];
+    const suvs = [];
+    const trucks = [];
+    const electricHybrid = [];
+    const othersMap = {};
 
-    for (const [category, list] of groupedEntries) {
-        if (category === "Sedan") {
-            sedans = list;
-        } else if (category === "Minivan") {
-            minivans = list;
-        } else {
-            displayEntries.push([category, list]);
+    for (const car of cars) {
+        const category = (car.category || "Other").toString();
+        const cat = category.toLowerCase();
+
+        // Flexible substring matching (case-insensitive)
+        // Treat any category containing 'car' or 'minivan' as Cars & Minivans
+        if (cat.includes("car") || cat.includes("minivan")) {
+            carsAndMinivans.push(car);
+            continue;
         }
+
+        // Any category containing 'suv' -> SUV
+        if (cat.includes("suv")) {
+            suvs.push(car);
+            continue;
+        }
+
+        // Any category containing 'truck' -> Trucks
+        if (cat.includes("truck")) {
+            trucks.push(car);
+            continue;
+        }
+
+        // If vehicle looks electric or hybrid, put into that bucket (unless already classified)
+        if (isElectricOrHybrid(car)) {
+            electricHybrid.push(car);
+            continue;
+        }
+
+        // Fallback: group by category
+        if (!othersMap[category]) othersMap[category] = [];
+        othersMap[category].push(car);
     }
 
-    // Add combined section at the beginning if either exists
-    if (sedans.length > 0 || minivans.length > 0) {
-        displayEntries.unshift(["Cars & Minivans", [...sedans, ...minivans]]);
-    }
+    const displayEntries = [];
+    if (carsAndMinivans.length > 0) displayEntries.push(["Cars and Minivans", carsAndMinivans]);
+    if (suvs.length > 0) displayEntries.push(["SUV", suvs]);
+    if (trucks.length > 0) displayEntries.push(["Trucks", trucks]);
+    if (electricHybrid.length > 0) displayEntries.push(["Electric & Hybrid", electricHybrid]);
+
+    // Append other categories sorted by name
+    const otherEntries = Object.entries(othersMap).sort((a, b) => a[0].localeCompare(b[0]));
+    for (const entry of otherEntries) displayEntries.push(entry);
 
     return (
         <div className="min-h-screen bg-gray-100">
